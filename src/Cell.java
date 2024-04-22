@@ -1,7 +1,16 @@
 public class Cell {
     private int proximity;
+
     public Cell() {
         proximity = 0;
+    }
+
+    public void setProximity(int proximity) {
+        this.proximity = proximity;
+    }
+
+    public int getProximity() {
+        return proximity;
     }
 
     @Override
