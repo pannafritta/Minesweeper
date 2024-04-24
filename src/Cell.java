@@ -1,8 +1,8 @@
 public class Cell {
     private int proximity;
 
-    public Cell() {
-        proximity = 0;
+    public Cell(int proximity) {
+        this.proximity = proximity;
     }
 
     public void setProximity(int proximity) {

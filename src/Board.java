@@ -3,56 +3,36 @@ import java.util.Random;
 public class Board {
     private int width;
     private int length;
-    private Cell[][] board;
-    private final String mode;
+    private Cell[][] cellArray;
     private int bombnumber;
 
-    public Board(String mode) {
-        this.mode = mode.toUpperCase();
-        switch (this.mode) {
-            case "EASY":
-                this.width = 9;
-                this.length = 9;
-                bombnumber = 10;
-                break;
-
-            case "MEDIUM":
-                this.width = 16;
-                this.length = 16;
-                bombnumber = 40;
-                break;
-
-            case "HARD":
-                this.width = 30;
-                this.length = 16;
-                bombnumber = 99;
-                break;
-            default:
-                System.out.println("Errore nella difficoltà di gioco");
-        }
+    public Board(int width, int length, int bombnumber) {
+        this.width = width;
+        this.length = length;
+        this.bombnumber = bombnumber;
         generateEmptyBoard();
-        fillWithBombs();
     }
 
+
     private void generateEmptyBoard() {
-        board = new Cell[width][length];
+        cellArray = new Cell[width][length];
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < width; j++) {
-                board[j][i] = new Cell();
+                cellArray[j][i] = new Cell(0); //forse meglio -1, poi ne parliamo
             }
         }
     }
 
 
-    private void fillWithBombs() {
+    protected void fillWithBombs() {
         Random random = new Random();
         for (int i = 0; i < bombnumber; i++) {
             int x = random.nextInt(width);
             int y = random.nextInt(length);
-            if (board[x][y].getProximity() == 9) {
+            if (cellArray[x][y].getProximity() == 9) {
                 i--;
             } else {
-                board[x][y].setProximity(9);
+                cellArray[x][y].setProximity(9);
                 updateBoard(x, y);
             }
         }
@@ -64,13 +44,30 @@ public class Board {
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
                 try {
-                    if (board[i][j].getProximity() != 9) {
-                        board[i][j].setProximity(board[i][j].getProximity() + 1);
+                    if (cellArray[i][j].getProximity() != 9) {
+                        cellArray[i][j].setProximity(cellArray[i][j].getProximity() + 1);
                     }
                 } catch (Exception e) {
+                    // bisognerebbe dirgli cosa deve fare nel caso catturi un'eccezione
                 }
             }
         }
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setCellArray(Cell[][] cellArray) {
+        this.cellArray = cellArray;
+    }
+
+    public void setBombnumber(int bombnumber) {
+        this.bombnumber = bombnumber;
     }
 
     public int getLength() {
@@ -81,8 +78,12 @@ public class Board {
         return width;
     }
 
-    public Cell[][] getBoard() {
-        return board;
+    public int getBombnumber() {
+        return bombnumber;
+    }
+
+    public Cell[][] getCellArray() {
+        return cellArray;
     }
 
     @Override
@@ -90,9 +91,9 @@ public class Board {
     public String toString() {
         String s = "";
         for (int i = 0; i < length; i++) {
-            s += board[i][0].toString();
+            s += cellArray[i][0].toString();
             for (int j = 1; j < width; j++) {
-                s += "," + board[j][i];
+                s += "," + cellArray[j][i];
             }
             s += "\n";
         }
