@@ -4,7 +4,7 @@ public class Board {
     private int width;
     private int length;
     private Cell[][] board;
-    private String mode;
+    private final String mode;
     private int bombnumber;
 
     public Board(String mode) {
@@ -73,6 +73,17 @@ public class Board {
         }
     }
 
+    public int getLength() {
+        return length;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public Cell[][] getBoard() {
+        return board;
+    }
 
     @Override
 
@@ -86,10 +97,5 @@ public class Board {
             s += "\n";
         }
         return s;
-    }
-
-    public static void main(String[] args) {
-        Board board = new Board("harD");
-        System.out.println(board);
     }
 }
