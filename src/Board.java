@@ -1,7 +1,6 @@
-import javax.swing.*;
 import java.util.Random;
 
-public class Board extends JPanel {
+public class Board {
     private int width;
     private int length;
     private Cell[][] board;

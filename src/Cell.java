@@ -1,6 +1,4 @@
-import javax.swing.*;
-
-public class Cell extends JButton {
+public class Cell {
     private int proximity;
 
     public Cell() {
