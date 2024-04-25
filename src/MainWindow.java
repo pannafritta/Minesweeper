@@ -39,7 +39,7 @@ public class MainWindow {
                             System.out.println("Primo click! Genero la tabella!");
                             // genera la tabella mettendo uno 0 sul primo click
                             board.fillWithBombs(cell.getGridX(), cell.getGridY());
-                        };
+                        }
                     }
                 });
             }
@@ -52,21 +52,12 @@ public class MainWindow {
     }
 
     public Board menu(String mode) {
-        Board board;
-        switch (mode) {
-            case "EASY":
-                board = new Board(9, 9, 10);
-                break;
-            case "MEDIUM":
-                board = new Board(16, 16, 40);
-                break;
-            case "HARD":
-                board = new Board(30, 16, 99);
-                break;
-            default:
-                board = null;
-        }
-        return board;
+        return switch (mode) {
+            case "EASY" -> new Board(9, 9, 10);
+            case "MEDIUM" -> new Board(16, 16, 40);
+            case "HARD" -> new Board(30, 16, 99);
+            default -> null;
+        };
     }
 
 
