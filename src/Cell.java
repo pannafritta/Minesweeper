@@ -4,7 +4,7 @@ public class Cell extends JButton {
     private int proximity;
     private int gridX;
     private int gridY;
-    private boolean isFirstClick = false;
+    private boolean isFirstClick = false; // forse non serve come field
 
     public Cell(int proximity) {
         super(String.valueOf(proximity));
@@ -31,10 +31,6 @@ public class Cell extends JButton {
     public void setCoordinates(int gridX, int gridY) {
         this.gridX = gridX;
         this.gridY = gridY;
-    }
-
-    public boolean isFirstClick() {
-        return isFirstClick;
     }
 
     public void setFirstClick() {

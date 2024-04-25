@@ -33,10 +33,12 @@ public class MainWindow {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (board.checkFirstClick(cell)){
+                            // stampa informazioni sulla cella cliccata
                             System.out.printf("Cella: %d, %d; Prossimità: %d; Scritta: %s%n", cell.getGridX(), cell.getGridY(), cell.getProximity(), cell.getText());
                         } else {
                             System.out.println("Primo click! Genero la tabella!");
-                            board.fillWithBombs(cell.getGridX(), cell.getGridY()); // genera la tabella non mettendo una bomba sul primo click
+                            // genera la tabella mettendo uno 0 sul primo click
+                            board.fillWithBombs(cell.getGridX(), cell.getGridY());
                         };
                     }
                 });
