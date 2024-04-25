@@ -58,6 +58,7 @@ public class Board {
             int y = random.nextInt(length);
             if (x == firstX || x == firstX - 1 || x == firstX + 1) {
                 if (y == firstY || y == firstY - 1 || y == firstY + 1) {
+                    i--;
                     continue;
                 }
             }
