@@ -30,13 +30,18 @@ public class MainWindow {
                 cell.setCoordinates(i, j);
                 cp.add(board.getCellArray()[i][j], new GridBagConstraints(i, j, 1, 1, 1.0, 1.0, CENTER, BOTH, new Insets(0, 0, 0, 0), 0, 0));
                 cell.addActionListener(event -> {
-                    if (board.checkFirstClick(cell)){
+                    if (board.checkFirstClick(cell)) {
                         // stampa informazioni sulla cella cliccata
+                        cell.setText(String.valueOf(cell.getProximity()));
                         System.out.printf("Cella: %d, %d; Prossimità: %d; Scritta: %s%n", cell.getGridX(), cell.getGridY(), cell.getProximity(), cell.getText());
+
+
                     } else {
                         System.out.println("Primo click! Genero la tabella!");
                         // genera la tabella mettendo uno 0 sul primo click
                         board.fillWithBombs(cell.getGridX(), cell.getGridY());
+                        //imposta il testo post-click
+                        cell.setText(String.valueOf(cell.getProximity()));
                     }
                 });
             }

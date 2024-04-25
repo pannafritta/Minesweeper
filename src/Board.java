@@ -3,14 +3,14 @@ import java.util.Random;
 public class Board {
     private final int width;
     private final int length;
-    private final int bombnumber;
+    private final int bombNumber;
     private Cell[][] cellArray;
     private boolean firstClickMade;
 
-    public Board(int width, int length, int bombnumber) {
+    public Board(int width, int length, int bombNumber) {
         this.width = width;
         this.length = length;
-        this.bombnumber = bombnumber;
+        this.bombNumber = bombNumber;
         generateEmptyBoard();
     }
 
@@ -52,7 +52,7 @@ public class Board {
 
     protected void fillWithBombs(int firstX, int firstY) {
         Random random = new Random();
-        for (int i = 0; i < bombnumber; i++) {
+        for (int i = 0; i < bombNumber; i++) {
             int x = random.nextInt(width);
             int y = random.nextInt(length);
             if (x == firstX || x == firstX - 1 || x == firstX + 1) {
@@ -65,7 +65,6 @@ public class Board {
                 i--;
             } else {
                 cellArray[x][y].setProximity(9);
-                cellArray[x][y].setText("B");
                 updateBoard(x, y);
             }
         }

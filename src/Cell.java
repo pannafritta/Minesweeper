@@ -7,13 +7,12 @@ public class Cell extends JButton {
     private boolean isFirstClick = false; // forse non serve come field
 
     public Cell(int proximity) {
-        super(String.valueOf(proximity));
+        super("  ");
         this.proximity = proximity;
     }
 
     public void setProximity(int proximity) {
         this.proximity = proximity;
-        this.setText(String.valueOf(proximity));
     }
 
     public int getProximity() {
