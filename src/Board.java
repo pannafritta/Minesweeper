@@ -1,10 +1,12 @@
 import java.util.Random;
 
 public class Board {
-    private int width;
-    private int length;
+    private final int width;
+    private final int length;
+    private final int bombnumber;
+    public Cell[][] getCellArray;
     private Cell[][] cellArray;
-    private int bombnumber;
+    private boolean firstClickMade;
 
     public Board(int width, int length, int bombnumber) {
         this.width = width;
@@ -12,7 +14,6 @@ public class Board {
         this.bombnumber = bombnumber;
         generateEmptyBoard();
     }
-
 
     private void generateEmptyBoard() {
         cellArray = new Cell[width][length];
@@ -23,53 +24,6 @@ public class Board {
         }
     }
 
-
-    protected void fillWithBombs() {
-        Random random = new Random();
-        for (int i = 0; i < bombnumber; i++) {
-            int x = random.nextInt(width);
-            int y = random.nextInt(length);
-            if (cellArray[x][y].getProximity() == 9) {
-                i--;
-            } else {
-                cellArray[x][y].setProximity(9);
-                updateBoard(x, y);
-            }
-        }
-
-    }
-
-
-    private void updateBoard(int x, int y) {
-        for (int i = x - 1; i <= x + 1; i++) {
-            for (int j = y - 1; j <= y + 1; j++) {
-                try {
-                    if (cellArray[i][j].getProximity() != 9) {
-                        cellArray[i][j].setProximity(cellArray[i][j].getProximity() + 1);
-                    }
-                } catch (Exception e) {
-                    // bisognerebbe dirgli cosa deve fare nel caso catturi un'eccezione
-                }
-            }
-        }
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setCellArray(Cell[][] cellArray) {
-        this.cellArray = cellArray;
-    }
-
-    public void setBombnumber(int bombnumber) {
-        this.bombnumber = bombnumber;
-    }
-
     public int getLength() {
         return length;
     }
@@ -78,16 +32,62 @@ public class Board {
         return width;
     }
 
-    public int getBombnumber() {
-        return bombnumber;
-    }
-
     public Cell[][] getCellArray() {
         return cellArray;
     }
 
-    @Override
+    public boolean isFirstClickMade() {
+        return firstClickMade;
+    }
 
+    // se non è stato fatto ancora un click setta la flag del first click
+    public boolean checkFirstClick(Cell c) {
+        if (isFirstClickMade()) {
+            return true;
+        } else {
+            firstClickMade = true;
+            c.setFirstClick();
+            return false;
+        }
+    }
+
+    protected void fillWithBombs(int firstX, int firstY) {
+        Random random = new Random();
+        for (int i = 0; i < bombnumber; i++) {
+            int x = random.nextInt(width);
+            int y = random.nextInt(length);
+            if (x == firstX || x == firstX - 1 || x == firstX + 1) {
+                if (y == firstY || y == firstY - 1 || y == firstY + 1) {
+                    continue;
+                }
+            }
+            if (cellArray[x][y].getProximity() == 9) {
+                i--;
+            } else {
+                cellArray[x][y].setProximity(9);
+                cellArray[x][y].setText("B");
+                updateBoard(x, y);
+            }
+        }
+
+    }
+
+    private void updateBoard(int x, int y) {
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1; j++) {
+                try {
+                    Cell c = cellArray[i][j];
+                    if (c.getProximity() != 9) {
+                        c.setProximity(c.getProximity() + 1);
+                    }
+                } catch (Exception e) {
+                    // bisognerebbe dirgli cosa deve fare nel caso catturi un'eccezione
+                }
+            }
+        }
+    }
+
+    @Override
     public String toString() {
         String s = "";
         for (int i = 0; i < length; i++) {
