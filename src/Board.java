@@ -4,7 +4,6 @@ public class Board {
     private final int width;
     private final int length;
     private final int bombnumber;
-    public Cell[][] getCellArray;
     private Cell[][] cellArray;
     private boolean firstClickMade;
 
@@ -90,14 +89,14 @@ public class Board {
 
     @Override
     public String toString() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            s += cellArray[i][0].toString();
+            s.append(cellArray[i][0].toString());
             for (int j = 1; j < width; j++) {
-                s += "," + cellArray[j][i];
+                s.append(",").append(cellArray[j][i]);
             }
-            s += "\n";
+            s.append("\n");
         }
-        return s;
+        return s.toString();
     }
 }

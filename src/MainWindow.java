@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import static java.awt.GridBagConstraints.BOTH;
 import static java.awt.GridBagConstraints.CENTER;
@@ -29,17 +27,14 @@ public class MainWindow {
                 Cell cell = board.getCellArray()[i][j];
                 cell.setCoordinates(i, j);
                 cp.add(board.getCellArray()[i][j], new GridBagConstraints(i, j, 1, 1, 1.0, 1.0, CENTER, BOTH, new Insets(0, 0, 0, 0), 0, 0));
-                cell.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (board.checkFirstClick(cell)){
-                            // stampa informazioni sulla cella cliccata
-                            System.out.printf("Cella: %d, %d; Prossimità: %d; Scritta: %s%n", cell.getGridX(), cell.getGridY(), cell.getProximity(), cell.getText());
-                        } else {
-                            System.out.println("Primo click! Genero la tabella!");
-                            // genera la tabella mettendo uno 0 sul primo click
-                            board.fillWithBombs(cell.getGridX(), cell.getGridY());
-                        }
+                cell.addActionListener(_ -> {
+                    if (board.checkFirstClick(cell)){
+                        // stampa informazioni sulla cella cliccata
+                        System.out.printf("Cella: %d, %d; Prossimità: %d; Scritta: %s%n", cell.getGridX(), cell.getGridY(), cell.getProximity(), cell.getText());
+                    } else {
+                        System.out.println("Primo click! Genero la tabella!");
+                        // genera la tabella mettendo uno 0 sul primo click
+                        board.fillWithBombs(cell.getGridX(), cell.getGridY());
                     }
                 });
             }
