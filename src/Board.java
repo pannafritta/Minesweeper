@@ -40,7 +40,7 @@ public class Board {
     }
 
     // se non è stato fatto ancora un click setta la flag del first click
-    public boolean checkFirstClick(Cell c) {
+    public boolean checkFirstClick() {
         if (isFirstClickMade()) {
             return true;
         } else {
@@ -113,7 +113,7 @@ public class Board {
                     cellArray[x][y].setText(String.valueOf(cellArray[x][y].getProximity()));
                     cellArray[x][y].setEnabled(false);
                     for (int i = -1; i < 2; i++) {
-                        for (int j = 0; j < 2; j++) {
+                        for (int j = -1; j < 2; j++) {
                             if (i == 0 && j == 0) {
                                 continue;
                             }
