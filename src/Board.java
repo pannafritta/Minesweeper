@@ -89,12 +89,14 @@ public class Board {
         switch (c.getProximity()) {
             case 9:
                 c.setText("B");
+                c.setEnabled(false);
                 break;
             case 0:
                 showIfZero(c.getGridX(), c.getGridY());
                 break;
             default:
                 c.setText(String.valueOf(c.getProximity()));
+                c.setEnabled(false);
         }
     }
 
@@ -107,17 +109,17 @@ public class Board {
             } else {
                 //se ho uno 0 controllo le celle adiacenti e chiamo ricorsivamente la funzione
                 //inoltre segno la casella con lo 0 come "già controllata"
-                if (!cellArray[x][y].isChecked()) {
-                    cellArray[x][y].setChecked(true);
+                if (cellArray[x][y].isEnabled()) {
                     cellArray[x][y].setText(String.valueOf(cellArray[x][y].getProximity()));
-                    showIfZero(x - 1, y - 1);
-                    showIfZero(x, y - 1);
-                    showIfZero(x + 1, y - 1);
-                    showIfZero(x - 1, y);
-                    showIfZero(x + 1, y);
-                    showIfZero(x - 1, y + 1);
-                    showIfZero(x, y + 1);
-                    showIfZero(x + 1, y + 1);
+                    cellArray[x][y].setEnabled(false);
+                    for (int i = -1; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            if (i == 0 && j == 0) {
+                                continue;
+                            }
+                            showIfZero(x + i, y + j);
+                        }
+                    }
                 }
 
             }
