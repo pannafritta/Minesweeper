@@ -1,14 +1,22 @@
 import javax.swing.*;
 
 public class Cell extends JButton {
+    private boolean checked;
     private int proximity;
     private int gridX;
     private int gridY;
-    private boolean isFirstClick = false; // forse non serve come field
 
     public Cell(int proximity) {
         super("  ");
         this.proximity = proximity;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public boolean isChecked() {
+        return checked;
     }
 
     public void setProximity(int proximity) {
@@ -32,9 +40,6 @@ public class Cell extends JButton {
         this.gridY = gridY;
     }
 
-    public void setFirstClick() {
-        isFirstClick = true;
-    }
 
     @Override
     public String toString() {

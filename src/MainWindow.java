@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import static java.awt.GridBagConstraints.BOTH;
 import static java.awt.GridBagConstraints.CENTER;
@@ -11,7 +9,7 @@ public class MainWindow {
     public MainWindow() {
 
         //Creates a new board
-        Board board = menu("EASY");
+        Board board = menu("HaRD");
 
         //Sets the JFrame with the dimension of the board
         JFrame frame = new JFrame("Minesweeper");
@@ -32,16 +30,17 @@ public class MainWindow {
                 cell.addActionListener(event -> {
                     if (board.checkFirstClick(cell)) {
                         // stampa informazioni sulla cella cliccata
-                        cell.setText(String.valueOf(cell.getProximity()));
+                        board.showCell(cell);
                         System.out.printf("Cella: %d, %d; Prossimità: %d; Scritta: %s%n", cell.getGridX(), cell.getGridY(), cell.getProximity(), cell.getText());
 
 
                     } else {
+
                         System.out.println("Primo click! Genero la tabella!");
                         // genera la tabella mettendo uno 0 sul primo click
                         board.fillWithBombs(cell.getGridX(), cell.getGridY());
                         //imposta il testo post-click
-                        cell.setText(String.valueOf(cell.getProximity()));
+                        board.showCell(cell);
                     }
                 });
             }
@@ -54,6 +53,7 @@ public class MainWindow {
     }
 
     public Board menu(String mode) {
+        mode = mode.toUpperCase();
         return switch (mode) {
             case "EASY" -> new Board(9, 9, 10);
             case "MEDIUM" -> new Board(16, 16, 40);
@@ -61,6 +61,4 @@ public class MainWindow {
             default -> null;
         };
     }
-
-
 }
