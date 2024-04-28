@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import static java.awt.GridBagConstraints.BOTH;
 import static java.awt.GridBagConstraints.CENTER;
@@ -27,25 +29,51 @@ public class MainWindow {
                 Cell cell = board.getCellArray()[i][j];
                 cell.setCoordinates(i, j);
                 cp.add(board.getCellArray()[i][j], new GridBagConstraints(i, j, 1, 1, 1.0, 1.0, CENTER, BOTH, new Insets(0, 0, 0, 0), 0, 0));
-                cell.addActionListener(event -> {
-                    if (board.checkFirstClick()) {
-                        // stampa informazioni sulla cella cliccata
-                        board.showCell(cell);
-                        System.out.printf("Cella: %d, %d; Prossimità: %d; Scritta: %s%n", cell.getGridX(), cell.getGridY(), cell.getProximity(), cell.getText());
-                        System.out.println(cell.isBomb());
-                        if (cell.isBomb()) {
-                            JOptionPane.showMessageDialog(null, "Game Over", "Non lo so", JOptionPane.INFORMATION_MESSAGE);
-                            System.exit(0);
+                //Questo è tutto da cambiare
+                cell.addMouseListener (new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (board.checkFirstClick() && (e.getButton() == MouseEvent.BUTTON1)) { //tasto sinistro
+                            // stampa informazioni sulla cella cliccata
+                            board.showCell(cell);
+                            System.out.printf("Cella: %d, %d; Prossimità: %d; Scritta: %s%n", cell.getGridX(), cell.getGridY(), cell.getProximity(), cell.getText());
+                            System.out.println(cell.isBomb());
+                            if (cell.isBomb()) {
+                                JOptionPane.showMessageDialog(null, "Game Over", "Non lo so", JOptionPane.INFORMATION_MESSAGE);
+                                System.exit(0);
+                            }
+
+
+                        } else if ((board.checkFirstClick()) && (e.getButton() == MouseEvent.BUTTON3)) { //tasto destro
+                            cell.setText("F");
+                        } else {
+
+                            System.out.println("Primo click! Genero la tabella!");
+                            // genera la tabella mettendo uno 0 sul primo click
+                            board.fillWithBombs(cell.getGridX(), cell.getGridY());
+                            //imposta il testo post-click
+                            board.showCell(cell);
                         }
+                    }
 
+                    @Override
+                    public void mousePressed(MouseEvent e) {
 
-                    } else {
+                    }
 
-                        System.out.println("Primo click! Genero la tabella!");
-                        // genera la tabella mettendo uno 0 sul primo click
-                        board.fillWithBombs(cell.getGridX(), cell.getGridY());
-                        //imposta il testo post-click
-                        board.showCell(cell);
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+
                     }
                 });
             }
