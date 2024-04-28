@@ -4,10 +4,20 @@ public class Cell extends JButton {
     private int proximity;
     private int gridX;
     private int gridY;
+    private boolean isBomb;
 
-    public Cell(int proximity) {
+    public Cell(int proximity, boolean isBomb) {
         super("  ");
         this.proximity = proximity;
+        this.isBomb = isBomb;
+    }
+
+    public boolean isBomb() {
+        return isBomb;
+    }
+
+    public void setBomb(boolean bomb) {
+        isBomb = bomb;
     }
 
     public void setProximity(int proximity) {
@@ -30,7 +40,6 @@ public class Cell extends JButton {
         this.gridX = gridX;
         this.gridY = gridY;
     }
-
 
     @Override
     public String toString() {

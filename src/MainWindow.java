@@ -28,10 +28,15 @@ public class MainWindow {
                 cell.setCoordinates(i, j);
                 cp.add(board.getCellArray()[i][j], new GridBagConstraints(i, j, 1, 1, 1.0, 1.0, CENTER, BOTH, new Insets(0, 0, 0, 0), 0, 0));
                 cell.addActionListener(event -> {
-                    if (board.checkFirstClick(cell)) {
+                    if (board.checkFirstClick()) {
                         // stampa informazioni sulla cella cliccata
                         board.showCell(cell);
                         System.out.printf("Cella: %d, %d; Prossimità: %d; Scritta: %s%n", cell.getGridX(), cell.getGridY(), cell.getProximity(), cell.getText());
+                        System.out.println(cell.isBomb());
+                        if (cell.isBomb()) {
+                            JOptionPane.showMessageDialog(null, "Game Over", "Non lo so", JOptionPane.INFORMATION_MESSAGE);
+                            System.exit(0);
+                        }
 
 
                     } else {

@@ -18,7 +18,7 @@ public class Board {
         cellArray = new Cell[width][length];
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < width; j++) {
-                cellArray[j][i] = new Cell(0); //forse meglio -1, poi ne parliamo
+                cellArray[j][i] = new Cell(0, false); //forse meglio -1, poi ne parliamo
             }
         }
     }
@@ -35,13 +35,10 @@ public class Board {
         return cellArray;
     }
 
-    public boolean isFirstClickMade() {
-        return firstClickMade;
-    }
 
     // se non è stato fatto ancora un click setta la flag del first click
     public boolean checkFirstClick() {
-        if (isFirstClickMade()) {
+        if (firstClickMade) {
             return true;
         } else {
             firstClickMade = true;
@@ -64,6 +61,7 @@ public class Board {
                 i--;
             } else {
                 cellArray[x][y].setProximity(9);
+                cellArray[x][y].setBomb(true);
                 updateBoard(x, y);
             }
         }
@@ -87,16 +85,15 @@ public class Board {
 
     public void showCell(Cell c) {
         switch (c.getProximity()) {
-            case 9:
+            case 9 -> {
                 c.setText("B");
                 c.setEnabled(false);
-                break;
-            case 0:
-                showIfZero(c.getGridX(), c.getGridY());
-                break;
-            default:
+            }
+            case 0 -> showIfZero(c.getGridX(), c.getGridY());
+            default -> {
                 c.setText(String.valueOf(c.getProximity()));
                 c.setEnabled(false);
+            }
         }
     }
 
