@@ -39,7 +39,7 @@ public class MainWindow {
                             System.out.printf("Cella: %d, %d; Prossimità: %d; Scritta: %s%n", cell.getGridX(), cell.getGridY(), cell.getProximity(), cell.getText());
                             System.out.println(cell.isBomb());
                             if (cell.isBomb()) {
-                                JOptionPane.showMessageDialog(null, "Game Over", "Non lo so", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Game Over", "", JOptionPane.INFORMATION_MESSAGE);
                                 System.exit(0);
                             }
 
