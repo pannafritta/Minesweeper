@@ -5,11 +5,21 @@ public class Cell extends JButton {
     private int gridX;
     private int gridY;
     private boolean isBomb;
+    private boolean isClicked;
 
-    public Cell(int proximity, boolean isBomb) {
+    public Cell(int proximity, boolean isBomb, boolean isClicked) {
         super("  ");
         this.proximity = proximity;
         this.isBomb = isBomb;
+        this.isClicked = isClicked;
+    }
+
+    public boolean isClicked() {
+        return isClicked;
+    }
+
+    public void setClicked(boolean clicked) {
+        isClicked = clicked;
     }
 
     public boolean isBomb() {

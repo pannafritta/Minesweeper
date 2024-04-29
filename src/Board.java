@@ -5,7 +5,7 @@ public class Board {
     private final int length;
     private final int bombNumber;
     private Cell[][] cellArray;
-    private boolean firstClickMade;
+    public static boolean firstClick;
 
     public Board(int width, int length, int bombNumber) {
         this.width = width;
@@ -18,7 +18,7 @@ public class Board {
         cellArray = new Cell[width][length];
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < width; j++) {
-                cellArray[j][i] = new Cell(0, false); //forse meglio -1, poi ne parliamo
+                cellArray[j][i] = new Cell(0, false, false); //forse meglio -1, poi ne parliamo
             }
         }
     }
@@ -33,17 +33,6 @@ public class Board {
 
     public Cell[][] getCellArray() {
         return cellArray;
-    }
-
-
-    // se non è stato fatto ancora un click setta la flag del first click
-    public boolean checkFirstClick() {
-        if (firstClickMade) {
-            return true;
-        } else {
-            firstClickMade = true;
-            return false;
-        }
     }
 
     protected void fillWithBombs(int firstX, int firstY) {
@@ -84,6 +73,7 @@ public class Board {
     }
 
     public void showCell(Cell c) {
+        c.setClicked(true);
         switch (c.getProximity()) {
             case 9 -> {
                 c.setText("B");
